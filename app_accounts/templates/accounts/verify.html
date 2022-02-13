@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block start %}
+    
+    <div class="container">
+
+    <form method="POST"  class="mt-5 pt-5" >
+        {%  csrf_token %}
+        {% if messages %}
+
+            {% for message in messages %}
+            <div class="alert alert-info">
+                {{message}}
+            </div>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <div class="mb-3">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">otp</label>
+                <input type="number" name="otp" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text"></div>
+        </div>
+             
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>    
+
+</body>
+{% endblock %}

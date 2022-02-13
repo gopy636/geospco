@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block start %}
+
+<div class="container">
+  <div class="row mt-5 pt-5">
+    {% for user in users %}
+    <div class="col-md-3">
+      <div class="card" style="width: 18rem">
+        <img
+          src="/uploads/{{user.attachment}}"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{user.name}}</h5>
+          <p class="card-text">{{user.email}}</p>
+          <p class="card-text">{{user.cover_letter}}</p>
+          <p class="card-text">{{user.attachment}}</p>
+          <a href="{% url 'user_detail' user.id %}" class="btn btn-primary"
+            >View Details</a
+          >
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

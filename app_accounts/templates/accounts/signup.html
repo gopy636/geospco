@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block start %}
+    
+    <div class="container">
+
+    <form method="POST"  class="mt-5 pt-5" enctype="multipart/form-data" >
+        {%  csrf_token %}
+
+        {% if messages %}
+
+            {% for message in messages %}
+            <div class="alert alert-info">
+                {{message}}
+            </div>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email address</label>
+          <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">name</label>
+          <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">cover_letter</label>
+            <input type="text" name="cover_letter" class="form-control" id="exampleInputEmail1">
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">web_address</label>
+            <input type="url" name="web_address" class="form-control" id="exampleInputEmail1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">attachment</label>
+            <input type="file" name="attachment" class="form-control" id="exampleInputEmail1">
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="do_you_like_working" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              do you like working
+            </label>
+          </div>
+          
+          
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>    
+
+</body>
+{% endblock %}
