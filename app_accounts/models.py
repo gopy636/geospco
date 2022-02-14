@@ -13,6 +13,8 @@ class Candidate(BaseUser):
     attachment =models.FileField(upload_to ='uploads/')
     do_you_like_working=models.BooleanField(default=True)
     rating=models.FloatField(default=0.0,null=True,blank=True)
+    ip = models.GenericIPAddressField()
+
 
 class Reviewer(BaseUser):
     pass

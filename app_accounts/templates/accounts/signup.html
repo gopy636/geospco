@@ -4,9 +4,12 @@
     
     <div class="container">
 
-    <form method="POST"  class="text-center mt-5" novalidate enctype="multipart/form-data" >
+    <form method="POST"  class="text-center mt-5" enctype="multipart/form-data" >
+
         {%  csrf_token %}
-        {{form.captcha}}
+
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+         <div class="g-recaptcha" data-sitekey="6LeLe3keAAAAAG5m1MjJBNYmLSBCO45i80Aku5Yh"></div>
 
         {% if messages %}
 

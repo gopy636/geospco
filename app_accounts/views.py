@@ -8,8 +8,8 @@ from django.shortcuts import redirect
 from .models import *
 from .threads import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import get_object_or_404
-from .forms import CandiateForm
+from django.shortcuts import render, HttpResponse
+
 
 
 @login_required(login_url='/accounts/login/')
@@ -17,6 +17,14 @@ def logoutView(request):
     logout(request)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+def home(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    
+    return HttpResponse("Welcome Home<br>You are visiting from: {}".format(ip))
 
 
 def candiateSignUp(request):
@@ -49,7 +57,6 @@ def candiateSignUp(request):
                 print(e)
     except Exception as e:
         print(e)
-        form = CandiateForm()
         messages.info(request, 'Something went Wrong')
     return render(request, "accounts/signup.html")
 

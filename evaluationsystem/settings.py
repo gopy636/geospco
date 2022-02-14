@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app_accounts',
     'base_app',
-    'captcha'
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +143,7 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "cjcinfrastructure@gmail.com"
 EMAIL_HOST_PASSWORD = 'gs9951727462'
+
+SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+RECAPTCHA_PRIVATE_KEY = '6LeLe3keAAAAAI6IQBFyg25EzXdxUDhU9a5_MbU1'
+NOCAPTCHA = True
