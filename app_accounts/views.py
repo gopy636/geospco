@@ -9,11 +9,14 @@ from .models import *
 from .threads import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404
- 
+from .forms import CandiateForm
+
+
 @login_required(login_url='/accounts/login/')
 def logoutView(request):
     logout(request)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
 
 def candiateSignUp(request):
@@ -46,6 +49,7 @@ def candiateSignUp(request):
                 print(e)
     except Exception as e:
         print(e)
+        form = CandiateForm()
         messages.info(request, 'Something went Wrong')
     return render(request, "accounts/signup.html")
 
@@ -205,30 +209,30 @@ def index(request):
     return render(request, 'accounts/user_list.html', { 'users': users })
 
 
-def canded_details(request,id):
-    data = get_object_or_404(Candidate, pk=id)
-    context = {
-      "data":data
-  }
-    print(data)
+def candid_details(request, blog_id):
+    context = {}
+    try:
+        blog_obj = Candidate.objects.get(id = blog_id)
+        context['other_blogs'] =  Candidate.objects.all().exclude(id=blog_id)
+        context['blog_obj'] = blog_obj
+        context["blog_id"] = blog_id
+        context["blog_cmt"] = CommentsModel.objects.filter(From_coment=blog_obj)
+    except Exception as e:
+        print(e)
     return render(request, "accounts/user_details.html", context)
     
 
-
 @login_required(login_url='/login/')
-def addComment(request, candi_id):
+def addComment(request, blog_id):
     try:
         if request.method == 'POST':
-            # print(Reviewer.objects.get(email=request.user))
-            # print(Candidate.objects.get(id = candi_id))
-            # print(request.POST.get('comment'))
-            # print(int(request.POST.get('star')))
             CommentsModel.objects.create(
                 to_coment = Reviewer.objects.get(email=request.user),
-                From_coment =Candidate.objects.get(id = candi_id),
-               comment = request.POST.get('comment'),
-                star=int(request.POST.get('star')))
-    
+                From_coment =Candidate.objects.get(id = blog_id),
+                comment = request.POST.get('cmt'),
+                star=int(request.POST.get('star'))
+                )
+        print(email=request.user)
     except Exception as e:
         print(e)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

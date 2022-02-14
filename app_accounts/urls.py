@@ -11,6 +11,6 @@ urlpatterns = [
     path('revier-verify/',reviwerverify,name='verify-revier'),
     path('revier-login/',reviwerlogIn,name='login-revier'),
     path('',index),
-    path('user_detail/<id>/',canded_details,name='user_detail'),
-    path('add-comment/<id>/',addComment,name='add-comment')
+    path('user_detail/<blog_id>/',candid_details,name='user_detail'),
+    path('add-comment/<blog_id>/',addComment,name='add-comment')
 ]

@@ -1,43 +1,61 @@
 {% extends "base.html" %} {% block start %}
-
-<article class="media content-section">
-  <div class="media-body">
-    <div class="article-metadata">
-      <h2><a class="article-title" href="">{{ data.name}}</a></h2>
-      <h2>welcome revier {{ data.name}}</h2>
-    </div>
-    <p class="article-content">{{ data.email}}</p>
-    <p class="article-content">{{ data.web_address}}</p>
-    <p class="article-content">{{ data.cover_letter}}</p>
-    <p class="article-content">{{ data.attachment}}</p>
-    <p class="article-content">{{ data.do_you_like_working}}</p>
-  </div>
-    
-<div class="blogcontent">
-    <div class="comment">
-        <h2>Add a review</h2>
-        <form class="commentf" method="POST">
-            {% csrf_token %}
-            {% if request.user.is_authenticated %}
-            <div class="star-rating">
-                <input type="radio" id="5-stars" name="star" value="5">
-                <label for="5-stars" class="star">&#9733;</label>
-                <input type="radio" id="4-stars" name="star" value="4">
-                <label for="4-stars" class="star">&#9733;</label>
-                <input type="radio" id="3-stars" name="star" value="3">
-                <label for="3-stars" class="star">&#9733;</label>
-                <input type="radio" id="2-stars" name="star" value="2">
-                <label for="2-stars" class="star">&#9733;</label>
-                <input type="radio" id="1-star" name="star" value="1">
-                <label for="1-star" class="star">&#9733;</label>
+<div class="row">
+    <div class=""d-flex justify-content-center">
+        <article class="media content-section">
+            <div class="media-body">
+              <div class="article-metadata">
+                <h2><a class="article-title" href="">{{blog_obj.name}}</a></h2>
+                <h2>welcome revier {{blog_obj.name}}</h2>
+              </div>
+              <div>
+              <p class="article-content">{{blog_obj.email}}</p>
+              <p class="article-content">{{blog_obj.web_address}}</p>
+              <p class="article-content">{{blog_obj.cover_letter}}</p>
+              <p class="article-content">{{blog_obj.attachment}}</p>
+              <p class="article-content">{{blog_obj.do_you_like_working}}</p>
             </div>
-            <textarea rows="5" name="comment" placeholder="Add your Review"></textarea>
-            <input type="hidden" name="candi_id" value="{{data.id }}">
-            <button type="submit" href="{% url 'add-comment' 
-            data.id %}" class="btn">Post Comment</button>
-            {% else %}
-             <p>Please <a href="{% url 'login' %}">Login</a> to post a comment</p>
-            {% endif %}
-        </form>
-    </article> 
-    {% endblock %}
+        
+            <div class="blogcontent">
+              <div class="comment">
+                  <h2>Add a review</h2>
+                  <form class="comment" method="POST">
+                      {% csrf_token %}
+                      {% if request.user.is_authenticated %}
+                      <div class="star-rating">
+                          <input type="radio" id="5-stars" name="star" value="5">
+                          <label for="5-stars" class="star">&#9733;</label>
+                          <input type="radio" id="4-stars" name="star" value="4">
+                          <label for="4-stars" class="star">&#9733;</label>
+                          <input type="radio" id="3-stars" name="star" value="3">
+                          <label for="3-stars" class="star">&#9733;</label>
+                          <input type="radio" id="2-stars" name="star" value="2">
+                          <label for="2-stars" class="star">&#9733;</label>
+                          <input type="radio" id="1-star" name="star" value="1">
+                          <label for="1-star" class="star">&#9733;</label>
+                      </div>
+                      <textarea rows="5" name="comment" placeholder="Add your Review"></textarea>
+                      <input type="hidden" name="blgid" value="{{blog_obj.id}}">
+                      <button type="submit" href="{% url 'add-comment' blog_obj.id %}" class="btn btn-primary">Post Comment</button>
+                      {% else %}
+                          <p>Please <a href="{% url 'login' %}">Login</a> to post a comment</p>
+                      {% endif %}
+                  </form>
+                  {% if com %}
+                          <br><hr><br>
+                          <h2>Comments</h2>
+                          {% for q in blog_cmt %}
+                          <div class="formboxx">
+                              <h3>{{q.to_comment.name}}</h3>
+                              <p>{{q.comment}}</p>
+                          </div>
+                          {% endfor %}
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+          </div>
+        </div>
+          {% endblock %}
+          </article>        
+    </div>
+</div>

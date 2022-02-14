@@ -2,9 +2,13 @@
 from .models import Candidate
 from django import forms
 from django.core.exceptions import ValidationError
+from django import forms
+from captcha.fields import CaptchaField
+
+    
 # create a ModelForm
 class CandiateForm(forms.ModelForm):
-    # specify the name of model to use
+    captcha = CaptchaField()
     class Meta:
         model = Candidate
         fields = ['email', 'name', 'password', 'web_address','cover_letter','attachment','do_you_like_working',]

@@ -4,8 +4,9 @@
     
     <div class="container">
 
-    <form method="POST"  class="mt-5 pt-5" enctype="multipart/form-data" >
+    <form method="POST"  class="text-center mt-5" novalidate enctype="multipart/form-data" >
         {%  csrf_token %}
+        {{form.captcha}}
 
         {% if messages %}
 
