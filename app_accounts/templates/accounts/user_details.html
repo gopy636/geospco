@@ -18,7 +18,7 @@
             <div class="blogcontent">
               <div class="comment">
                   <h2>Add a review</h2>
-                  <form class="comment" method="POST">
+                  <form class="comment" method="POST" action="{% url 'add-comment' blog_obj.id %}">
                       {% csrf_token %}
                       {% if request.user.is_authenticated %}
                       <div class="star-rating">
@@ -35,7 +35,7 @@
                       </div>
                       <textarea rows="5" name="comment" placeholder="Add your Review"></textarea>
                       <input type="hidden" name="blgid" value="{{blog_obj.id}}">
-                      <button type="submit" href="{% url 'add-comment' blog_obj.id %}" class="btn btn-primary">Post Comment</button>
+                      <button type="submit" class="btn btn-primary">Post Comment</button>
                       {% else %}
                           <p>Please <a href="{% url 'login' %}">Login</a> to post a comment</p>
                       {% endif %}
