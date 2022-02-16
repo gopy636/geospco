@@ -190,7 +190,7 @@ def reviwerlogIn(request):
                         return redirect('/revier-login')
                     login(request, user)
                     messages.info(request, 'Successfully logged in')
-                    return redirect('/')
+                    return redirect('../')
                 except Exception as e:
                     print(e)
             except Exception as e:
@@ -232,14 +232,16 @@ def candid_details(request, blog_id):
 @login_required(login_url='/login/')
 def addComment(request, blog_id):
     try:
+        try:
+            user = Reviewer.objects.get(email=request.user)
+        except Reviewer.DoesNotExist:
+            user = None
         if request.method == 'POST':
             CommentsModel.objects.create(
-                to_coment = Reviewer.objects.get(email=request.user),
+                to_coment = user,
                 From_coment =Candidate.objects.get(id = blog_id),
                 comment = request.POST.get('cmt'),
-                star=int(request.POST.get('star'))
-                )
-        print(email=request.user)
+                star=int(request.POST.get('star')))
     except Exception as e:
         print(e)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

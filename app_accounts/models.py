@@ -13,8 +13,7 @@ class Candidate(BaseUser):
     attachment =models.FileField(upload_to ='uploads/')
     do_you_like_working=models.BooleanField(default=True)
     rating=models.FloatField(default=0.0,null=True,blank=True)
-    ip = models.GenericIPAddressField()
-
+   
 
 class Reviewer(BaseUser):
     pass
@@ -23,7 +22,7 @@ class Reviewer(BaseUser):
 class CommentsModel(BaseModel):
     From_coment = models.ForeignKey(Candidate, related_name="related_comment", on_delete=models.CASCADE)
     to_coment = models.ForeignKey(Reviewer, on_delete=models.PROTECT)
-    comment = models.TextField()
+    comment = models.TextField( blank=True, null=True)
     star=models.PositiveIntegerField(validators = [
         MaxValueValidator(5),
         MinValueValidator(0),

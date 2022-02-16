@@ -19,8 +19,8 @@
               <div class="comment">
                   <h2>Add a review</h2>
                   <form class="comment" method="POST" action="{% url 'add-comment' blog_obj.id %}">
-                      {% csrf_token %}
-                      {% if request.user.is_authenticated %}
+                        {% csrf_token %}
+                        {% if request.user.is_authenticated %}
                       <div class="star-rating">
                           <input type="radio" id="5-stars" name="star" value="5">
                           <label for="5-stars" class="star">&#9733;</label>
